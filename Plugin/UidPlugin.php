@@ -49,10 +49,11 @@ class UidPlugin
         $requesterCountryCode = '',
         $requesterVatNumber = ''
     ) {
-        $countryCodeFromVAT = $this->helper->getCountryCodeFromVAT($vatNumber);
+        $countryCode = strtoupper($countryCode);
+        $countryCodeFromVAT = strtoupper($this->helper->getCountryCodeFromVAT($vatNumber));
         if (!empty($vatNumber) && !is_numeric($countryCodeFromVAT) && $countryCode != $countryCodeFromVAT) {
             $this->addErrorMessage(__('Your selected country does not match the countrycode in VAT.'));
-            return [];
+            return [null,null,null,null];
         }
         $newVatNumber = $vatNumber;
         $newRequesterVatNumber = $requesterVatNumber;
